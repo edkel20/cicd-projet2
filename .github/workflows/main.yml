@@ -21,6 +21,6 @@
         - name: build and push
           uses: docker/build-push-action@v5
           with:
-            context: ./fontend
+            context: ./frontend
             push: true
             tags: ghcr.io/edkel20/cicd-projet2/frontend:latest
