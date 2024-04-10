@@ -2,6 +2,7 @@
   on: push
   env:
     SERVER_PRODUCTION_IP: "51.38.177.231"
+    SERVER_STANGING_IP: "51.38.177.231"
     SERVER_PRODUCTION_USER: root
 
   jobs:
@@ -113,8 +114,8 @@
       needs: e2e
       runs-on: ubuntu-latest
       environment:
-        name: staging
-        url: http//${{ env.SERVER_PRODUCTION_IP }}
+        name: stanging
+        url: http//${{ env.SERVER_STANGING_IP }}
       steps:
         - name: checkout
           uses: actions/checkout@v4
@@ -122,7 +123,7 @@
           uses: ./github/actions/deploy
           with:
             vps_key: ${{ secrets.VPS_KEY }}
-            server_ip: ${{ env.SERVER_PRODUCTION_IP }}
+            server_ip: ${{ env.SERVER_STANGING_IP }}
             token_github: ${{ secrets.GITHUB_TOKEN }}
 
     deploy-production:
