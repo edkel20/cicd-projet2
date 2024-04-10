@@ -11,6 +11,7 @@ services:
         delay: 10s
       restart_policy:
         condition: on-failure
+
   frontend:
     image: ghcr.io/edkel20/cicd-projet2/frontend:latest
     ports:

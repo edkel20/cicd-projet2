@@ -121,7 +121,7 @@
           uses: actions/checkout@v4
         - name: connexion production server
           run: |
-            evel $(ssh-agent -s)
+            eval $(ssh-agent -s)
             ssh-add - <<< "${{ secrets.VPS_KEY }}"
             mkdir -p ~/.ssh 
             ssh-keyscan -H ${{ env.SERVER_PRODUCTION_IP }} >> ~/.ssh/known_hosts
