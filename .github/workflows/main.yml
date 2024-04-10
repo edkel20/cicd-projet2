@@ -120,7 +120,7 @@
         - name: checkout
           uses: actions/checkout@v4
         - name: connexion production server
-          uses: ./github/actions/deploy
+          uses: ./.github/actions/deploy
           with:
             vps_key: ${{ secrets.VPS_KEY }}
             server_ip: ${{ env.SERVER_STANGING_IP }}
@@ -137,7 +137,7 @@
         - name: checkout
           uses: actions/checkout@v4
         - name: connexion production server
-          uses: ./github/actions/deploy
+          uses: ./.github/actions/deploy
           with:
             vps_key: ${{ secrets.VPS_KEY }}
             server_ip: ${{ env.SERVER_PRODUCTION_IP }}
