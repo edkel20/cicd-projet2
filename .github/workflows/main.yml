@@ -119,14 +119,11 @@
         - name: checkout
           uses: actions/checkout@v4
         - name: connexion production server
-          run: |
-            eval $(ssh-agent -s)
-            ssh-add - <<< "${{ secrets.VPS_KEY }}"
-            mkdir -p ~/.ssh 
-            ssh-keyscan -H ${{ env.SERVER_PRODUCTION_IP }} >> ~/.ssh/known_hosts
-            scp docker-compose.production.yml ${{ env.SERVER_PRODUCTION_USER }}@${{ env.SERVER_PRODUCTION_IP }}:/root/docker-compose.production.yml
-            ssh ${{ env.SERVER_PRODUCTION_USER }}@${{ env.SERVER_PRODUCTION_IP }} "docker login ghcr.io -u ${{ github.actor }} -p ${{ secrets.GITHUB_TOKEN }}"
-            ssh ${{ env.SERVER_PRODUCTION_USER }}@${{ env.SERVER_PRODUCTION_IP }} "docker compose -f /root/docker-compose.production.yml up -d --force-recreate"
+          uses: ./github/actions/deploy
+          with:
+            vps_key: ${{ secrets.VPS_KEY }}
+            server_ip: ${{ env.SERVER_PRODUCTION_IP }}
+            token_github: ${{ secrets.GITHUB_TOKEN }}
 
     deploy-production:
       needs: e2e
@@ -139,11 +136,8 @@
         - name: checkout
           uses: actions/checkout@v4
         - name: connexion production server
-          run: |
-            eval $(ssh-agent -s)
-            ssh-add - <<< "${{ secrets.VPS_KEY }}"
-            mkdir -p ~/.ssh 
-            ssh-keyscan -H ${{ env.SERVER_PRODUCTION_IP }} >> ~/.ssh/known_hosts
-            scp docker-compose.production.yml ${{ env.SERVER_PRODUCTION_USER }}@${{ env.SERVER_PRODUCTION_IP }}:/root/docker-compose.production.yml
-            ssh ${{ env.SERVER_PRODUCTION_USER }}@${{ env.SERVER_PRODUCTION_IP }} "docker login ghcr.io -u ${{ github.actor }} -p ${{ secrets.GITHUB_TOKEN }}"
-            ssh ${{ env.SERVER_PRODUCTION_USER }}@${{ env.SERVER_PRODUCTION_IP }} "docker compose -f /root/docker-compose.production.yml up -d --force-recreate"
+          uses: ./github/actions/deploy
+          with:
+            vps_key: ${{ secrets.VPS_KEY }}
+            server_ip: ${{ env.SERVER_PRODUCTION_IP }}
+            token_github: ${{ secrets.GITHUB_TOKEN }}
